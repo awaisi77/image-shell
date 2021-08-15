@@ -1,0 +1,18 @@
+{
+  "local-dev": {
+    "username": "root",
+    "password": "NFT@Market",
+    "database": "nft",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 3306
+  },
+  "docker-dev": {
+    "username": "root",
+    "password": "NFT@Market",
+    "database": "nft",
+    "host": "db",
+    "dialect": "mysql",
+    "port": 3306
+  }
+}

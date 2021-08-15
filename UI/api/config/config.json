@@ -1,0 +1,5 @@
+{
+  "docker-dev": {
+    "collectionImagesPath": "./storage/collection"
+  }
+}
