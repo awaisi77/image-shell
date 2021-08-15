@@ -7,11 +7,13 @@ services:
     ports:
       - 3894:3894
     volumes:
-      - D:\Practice\Blockchain\MarketPlaceNFT\NFT-Markete\UI\api\storage:/NFT/UI/api/storage
+      - /home/hp/Dev/react_practice/image-shell/UI/api/storage:/UI/api/storage
       - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/local/bin/docker:/usr/bin/docker
+      #- /usr/local/bin/docker:/usr/bin/docker
+      #- /home/hp/Dev/react_practice/image-shell/First.sh:/First.sh
     depends_on:
       - db
+    network_mode: host
     ipc: host
     pid: host
     privileged: true

@@ -1,4 +1,0 @@
-{
-    "BASE_URL":"http://localhost:3894/api/v1/",
-    "FILE_UPLOAD_URL":"https://ipfs.infura.io:5001/api/v0/add?quiet=true&progress=false&pin=true"
-}

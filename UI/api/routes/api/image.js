@@ -6,23 +6,11 @@ var Jimp = require('jimp');
 var path = require('path');
 const router = express.Router();
 
-router.get("/item/testRoute", async function (req, res, next) {
+router.get("/image/testRoute", async function (req, res, next) {
     let result = null;
     globalVar = globalVar + 1
     res.send(true)
 });
-
-router.post("/item/addNewItem", async function (req, res, next) {
-    let result = null;
-    try {
-        let itemManager = new ItemManager();
-        result = await itemManager.addNewItem(req.body);
-        res.send(result);
-    } catch (err) {
-        next(err);
-    }
-});
-
 
 router.post("/image", async function (req, res, next) {
     let result = null;
@@ -48,10 +36,6 @@ router.post("/image", async function (req, res, next) {
             listImages.push(img);
         }
 
-        /*    req.body.coordinates.map(async (coordinate)=>{
-
-                });*/
-
         res.send(listImages);
     } catch (err) {
         next(err);
@@ -63,7 +47,7 @@ router.post("/cmd", async function (req, res, next) {
     try {
 
         const { exec } = require("child_process");
-        exec("", (error, stdout, stderr) => {
+        exec("sh First.sh", (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
@@ -97,77 +81,5 @@ async function test(inputURL, obj) {
         }
     });
 }
-
-router.get("/item/getItemsByCollection", async function (req, res, next) {
-    let result = null;
-    try {
-
-        let itemManager = new ItemManager();
-        result = await itemManager.getItemsByCollectionId(req.query.UserId, req.query.CollectionId);
-        if (result.success) {
-            res.send(result);
-        } else {
-            res.status(500).send(result);
-        }
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.get("/item/getAllItemsForMarket", async function (req, res, next) {
-    let result = null;
-    try {
-
-        let itemManager = new ItemManager();
-        result = await itemManager.getAllItemsForMarket();
-        if (result.success) {
-            res.send(result);
-        } else {
-            res.status(500).send(result);
-        }
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.get("/item/unMintedItems", async function (req, res, next) {
-    let result = null;
-    try {
-
-        let itemManager = new ItemManager();
-        result = await itemManager.getUnMintedItems();
-        res.send(result);
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.get("/item/getItemByItemId", async function (req, res, next) {
-    let result = null;
-    try {
-
-        let itemManager = new ItemManager();
-        result = await itemManager.getItemByItemId(req.query.ItemId);
-        if (result.success) {
-            res.send(result);
-        } else {
-            res.status(500).send(result);
-        }
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.post("/item/addTokenAddress", async function (req, res, next) {
-    let result = null;
-    try {
-
-        let itemManager = new ItemManager();
-        result = await itemManager.update(req.body.ItemId, {Address: req.body.Address});
-        res.send(result);
-    } catch (err) {
-        next(err);
-    }
-});
 
 module.exports = router;
