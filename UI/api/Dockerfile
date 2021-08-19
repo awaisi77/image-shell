@@ -16,7 +16,7 @@ RUN npm install
 EXPOSE 3894
 
 # Define environment variable
-ENV NODE_ENV=docker-dev PORT=3894
+ENV NODE_ENV=local-dev PORT=3894
 
 # Run app.py when the container launches
 CMD ["npm", "start"]

@@ -1,9 +1,9 @@
 const express = require("express");
-const ItemManager = require("../../backend/business/itemManager").ItemManager;
 const fs = require('fs');
 const fetch = require('node-fetch');
 var Jimp = require('jimp');
 var path = require('path');
+const {FileStorageManager} = require("../../backend/business/fileStorageManager");
 const router = express.Router();
 
 router.get("/image/testRoute", async function (req, res, next) {
@@ -15,13 +15,13 @@ router.get("/image/testRoute", async function (req, res, next) {
 router.post("/image", async function (req, res, next) {
     let result = null;
     try {
-             const response = await fetch(req.body.url);
-             console.log('req.body.url', req.body)
-             const buffer = await response.buffer();
+        const response = await fetch(req.body.url);
+        console.log('req.body.url', req.body)
+        const buffer = await response.buffer();
 
-              fs.writeFile(`storage/image.jpg`, buffer,async ()=>{
-                  console.log('Download done')
-             });
+        fs.writeFile(`storage/image.jpg`, buffer, async () => {
+            console.log('Download done')
+        });
         // original image
 
         var listImages = [];
@@ -46,7 +46,11 @@ router.post("/cmd", async function (req, res, next) {
     let result = null;
     try {
 
-        const { exec } = require("child_process");
+        console.log('req.body', req.body);
+        let fileStorageManager = new FileStorageManager();
+        let result = await fileStorageManager.writeFile(req.body);
+
+        const {exec} = require("child_process");
         exec("sh First.sh", (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
@@ -72,7 +76,7 @@ async function test(inputURL, obj) {
             const outpath = 'storage/filtered' + Math.floor(Math.random() * 2000) + '.jpg';
             await photo
                 .crop(obj.x, obj.y, obj.w, obj.h) // resize
-                .write(outpath,()=>{
+                .write(outpath, () => {
                     resolve(outpath)
                 });
         } catch (error) {
